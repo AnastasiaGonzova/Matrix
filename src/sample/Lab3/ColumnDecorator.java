@@ -31,20 +31,18 @@ public class ColumnDecorator implements Matrix{
     public void DefaultView(){
         for(int i = 0; i < this.getColumnSize(); i++)
             ColumnMatching.put(i,i);
-        matrix.DefaultView();
     }
 
     @Override
     public boolean WriteElement(int row, int column, int element) {
         int newColumn = ColumnMatching.get(column);
-        if(!matrix.WriteElement(row, newColumn, element)) return false;
-        return true;
+        return matrix.WriteElement(row, newColumn, element);
     }
 
     @Override
-    public int ReadELement(int row, int column) {
+    public int ReadElement(int row, int column) {
         int newColumn = ColumnMatching.get(column);
-        return matrix.ReadELement(row, newColumn);
+        return matrix.ReadElement(row, newColumn);
     }
 
     @Override

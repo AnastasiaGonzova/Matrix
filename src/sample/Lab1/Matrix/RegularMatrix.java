@@ -15,7 +15,7 @@ public class RegularMatrix extends SomeMatrix {
     }
 
     final public String DrawElement(int i, int j){
-        Integer res = ReadELement(i, j);
+        Integer res = ReadElement(i, j);
         return res.toString();
     }
 }

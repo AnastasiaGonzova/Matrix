@@ -98,7 +98,7 @@ public class Controller{
                     decorator = CreateDecorator(m);
                 }
                 if(SelectDrawer.getValue().equals("Curly")){
-                    RegularMatrix m = new RegularMatrix(StraightDrawer.getInstance());
+                    RegularMatrix m = new RegularMatrix(CurlyDrawer.getInstance());
                     decorator = CreateDecorator(m);
                 }
 
@@ -118,7 +118,7 @@ public class Controller{
                     decorator = CreateDecorator(m);
                 }
                 if(SelectDrawer.getValue().equals("Curly")){
-                    SparseMatrix m = new SparseMatrix(StraightDrawer.getInstance());
+                    SparseMatrix m = new SparseMatrix(CurlyDrawer.getInstance());
                     decorator = CreateDecorator(m);
                 }
                 decorator.setBorder(Border.isSelected());
@@ -184,7 +184,6 @@ public class Controller{
         Back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(decorator == null) return;
                 if(decorator == null) return;
                 decorator.DefaultView();
 

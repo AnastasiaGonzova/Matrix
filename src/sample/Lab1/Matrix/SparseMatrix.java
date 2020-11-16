@@ -15,8 +15,8 @@ public class SparseMatrix extends SomeMatrix {
     }
 
     final public String DrawElement(int i, int j){
-        Integer res = ReadELement(i, j);
-        if(ReadELement(i,j) != 0) return res.toString();
+        Integer res = ReadElement(i, j);
+        if(ReadElement(i,j) != 0) return res.toString();
         else return "_";
     }
 }

@@ -14,7 +14,7 @@ public class StatisticMatrix {
         int sum = 0;
         for(int i = 0; i < m.getRowSize(); i++)
             for(int j = 0; j < m.getColumnSize(); j++)
-                sum += m.ReadELement(i, j);
+                sum += m.ReadElement(i, j);
         return sum;
     }
 
@@ -23,10 +23,10 @@ public class StatisticMatrix {
     }
 
     public int Max(){
-        int max = m.ReadELement(0,0);
+        int max = m.ReadElement(0,0);
         for(int i = 0; i < m.getRowSize(); i++)
             for(int j = 0; j < m.getColumnSize(); j++)
-                if(m.ReadELement(i,j) > max) max = m.ReadELement(i,j);
+                if(m.ReadElement(i,j) > max) max = m.ReadElement(i,j);
         return max;
     }
 
@@ -34,7 +34,7 @@ public class StatisticMatrix {
         int notzeros = 0;
         for(int i = 0; i < m.getRowSize(); i++)
             for(int j = 0; j < m.getColumnSize(); j++)
-                if(m.ReadELement(i,j) != 0) notzeros++;
+                if(m.ReadElement(i,j) != 0) notzeros++;
         return notzeros;
     }
 }

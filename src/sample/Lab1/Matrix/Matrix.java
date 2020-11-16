@@ -6,7 +6,7 @@ public interface Matrix {
 
     boolean WriteElement(int row, int column, int element);
 
-    int ReadELement(int row, int column);
+    int ReadElement(int row, int column);
 
     int getRowSize();
     int getColumnSize();

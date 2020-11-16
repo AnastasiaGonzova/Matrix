@@ -8,7 +8,7 @@ public abstract class SomeMatrix implements Matrix {
     private Vector[] rows;
     private int rowSize;
     private int columnSize;
-    private Drawer drawer = null;
+    private Drawer drawer;
     private boolean border = true;
 
 
@@ -76,12 +76,11 @@ public abstract class SomeMatrix implements Matrix {
 
     @Override
     public boolean WriteElement(int row, int column, int element){
-        if(rows[row].WriteElement(column, element)) return true;
-        else return false;
+        return rows[row].WriteElement(column, element);
     }
 
     @Override
-    public int ReadELement(int row, int column){
+    public int ReadElement(int row, int column){
         return rows[row].ReadELement(column);
     }
 
@@ -106,10 +105,10 @@ public abstract class SomeMatrix implements Matrix {
     }
 
     public void Swap(int i, int j){
-        return;
+        throw new UnsupportedOperationException("It's not a decorator");
     }
 
     public void DefaultView(){
-        return;
+        throw new UnsupportedOperationException("It's not a decorator");
     }
 }

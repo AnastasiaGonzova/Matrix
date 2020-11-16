@@ -31,20 +31,18 @@ public class RowDecorator implements Matrix{
     public void DefaultView(){
         for(int i = 0; i < this.getRowSize(); i++)
             RowMatching.put(i,i);
-        matrix.DefaultView();
     }
 
     @Override
     public boolean WriteElement(int row, int column, int element) {
         int newRow = RowMatching.get(row);
-        if(!matrix.WriteElement(newRow, column, element)) return false;
-        return true;
+        return matrix.WriteElement(newRow, column, element);
     }
 
     @Override
-    public int ReadELement(int row, int column) {
+    public int ReadElement(int row, int column) {
         int newRow = RowMatching.get(row);
-        return matrix.ReadELement(newRow, column);
+        return matrix.ReadElement(newRow, column);
     }
 
     @Override
@@ -86,7 +84,7 @@ public class RowDecorator implements Matrix{
     public String toString() {
         for(int i = 0; i < getRowSize(); i++){
             for(int j = 0; j < getColumnSize(); j++)
-                System.out.print(ReadELement(i, j) + " ");
+                System.out.print(ReadElement(i, j) + " ");
             System.out.print("\n");
         }
         return "";
