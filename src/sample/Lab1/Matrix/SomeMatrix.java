@@ -111,4 +111,9 @@ public abstract class SomeMatrix implements Matrix {
     public void DefaultView(){
         throw new UnsupportedOperationException("It's not a decorator");
     }
+
+    @Override
+    public boolean isComponent() {
+        return false;
+    }
 }

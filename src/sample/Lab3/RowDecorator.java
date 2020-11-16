@@ -31,6 +31,7 @@ public class RowDecorator implements Matrix{
     public void DefaultView(){
         for(int i = 0; i < this.getRowSize(); i++)
             RowMatching.put(i,i);
+        if(matrix.isComponent())matrix.DefaultView();
     }
 
     @Override
@@ -78,6 +79,11 @@ public class RowDecorator implements Matrix{
     @Override
     public void setBorder(boolean check) {
         matrix.setBorder(check);
+    }
+
+    @Override
+    public boolean isComponent() {
+        return true;
     }
 
     @Override

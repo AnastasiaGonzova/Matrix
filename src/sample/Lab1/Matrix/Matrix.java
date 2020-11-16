@@ -55,4 +55,5 @@ public interface Matrix {
 
     void Swap(int i, int j);
     void DefaultView();
+    boolean isComponent();
 }
