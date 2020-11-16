@@ -4,7 +4,7 @@ public interface Vector {
 
     boolean WriteElement(int position, int  element);
 
-    int ReadELement(int position);
+    int ReadElement(int position);
 
     int getSize();
 }

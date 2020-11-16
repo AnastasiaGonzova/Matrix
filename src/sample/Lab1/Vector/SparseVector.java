@@ -1,7 +1,5 @@
 package sample.Lab1.Vector;
 
-import sample.Lab1.Vector.Vector;
-
 import java.util.HashMap;
 
 public class SparseVector implements Vector {
@@ -29,7 +27,7 @@ public class SparseVector implements Vector {
     }
 
     @Override
-    public int ReadELement(int position) {
+    public int ReadElement(int position) {
         if(notZeroElements.containsKey(position))
             return notZeroElements.get(position);
         else return 0;

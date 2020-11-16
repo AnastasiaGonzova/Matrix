@@ -81,7 +81,7 @@ public abstract class SomeMatrix implements Matrix {
 
     @Override
     public int ReadElement(int row, int column){
-        return rows[row].ReadELement(column);
+        return rows[row].ReadElement(column);
     }
 
 

@@ -1,7 +1,5 @@
 package sample.Lab1.Vector;
 
-import sample.Lab1.Vector.Vector;
-
 public class RegularVector implements Vector {
 
     private int[] elements;
@@ -19,7 +17,7 @@ public class RegularVector implements Vector {
     }
 
     @Override
-    public int ReadELement(int position) {
+    public int ReadElement(int position) {
         return elements[position];
     }
 
