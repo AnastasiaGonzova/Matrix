@@ -13,6 +13,7 @@ public abstract class SomeMatrix implements Matrix {
 
 
     public SomeMatrix(Drawer d){
+        if(d == null) throw new IllegalArgumentException("Drawer can't be null");
         rowSize = 4;
         columnSize = 5;
         rows = new Vector[rowSize];
@@ -29,6 +30,7 @@ public abstract class SomeMatrix implements Matrix {
     }
 
     public void setDrawer(Drawer d){
+        if(d == null) throw new IllegalArgumentException("Drawer can't be null");
         drawer = d;
     }
 
