@@ -8,7 +8,9 @@ import javafx.stage.Stage;
 import sample.Lab1.InitiatorMatrix;
 import sample.Lab1.Matrix.Matrix;
 import sample.Lab1.Matrix.RegularMatrix;
+import sample.Lab1.Matrix.SparseMatrix;
 import sample.Lab2.Drawer.StraightDrawer;
+import sample.Lab3.ColumnDecorator;
 import sample.Lab3.RowDecorator;
 
 public class Main extends Application {
@@ -29,17 +31,43 @@ public class Main extends Application {
     }
 
     public static void Test(){
-        Matrix m = new RegularMatrix(StraightDrawer.getInstance());
-        InitiatorMatrix.Fill(m, 14, 10);
-        RowDecorator rd = new RowDecorator(m);
+        Matrix m = new SparseMatrix(StraightDrawer.getInstance());
+        InitiatorMatrix.extraFill(m, 8, 10);
         System.out.println(m);
+        System.out.println();
+        String[] mView = m.Draw(null);
+        for(int i = 0; i < mView.length; i++)
+            System.out.println(mView[i]);
+        System.out.println();
+        Matrix rd = new RowDecorator(m);
         rd.Swap(0, 1);
-        /*
-        for(int i = 0; i < m.getRowSize(); i++)
-            for(int j = 0; j < m.getColumnSize(); j++){
-                rd.WriteElement(i, j, m.ReadELement(i, j));
-            }
-        */
-        System.out.println(rd);
+        String[] rdView = rd.Draw(null);
+        for(int i = 0; i < rdView.length; i++)
+            System.out.println(rdView[i]);
+        System.out.println();
+
+        Matrix exm = new RegularMatrix(StraightDrawer.getInstance());
+        InitiatorMatrix.Fill(exm, 16, 10);
+        System.out.println(exm);
+        System.out.println();
+        String[] exmView = exm.Draw(null);
+        for(int i = 0; i < exmView.length; i++)
+            System.out.println(exmView[i]);
+        System.out.println();
+        Matrix cd = new ColumnDecorator(exm);
+        /*cd.Swap(1,2);
+        String[] cdView = cd.Draw(null);
+        for(int i = 0; i < cdView.length; i++)
+            System.out.println(cdView[i]);
+        System.out.println();*/
+
+        RowDecorator rcd = new RowDecorator(cd);
+        rcd.Swap(0,1);
+        rcd.getComponent().Swap(2,3);
+        String[] rcdView = rcd.Draw(null);
+        for(int i = 0; i < rcdView.length; i++)
+            System.out.println(rcdView[i]);
+        System.out.println();
+
     }
 }

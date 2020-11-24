@@ -57,9 +57,9 @@ public class RowDecorator implements Matrix{
     }
 
     @Override
-    public String DrawElement(int i, int j){
-        int newi = RowMatching.get(i);
-        return matrix.DrawElement(newi, j);
+    public String[] Draw(Transfer my) {
+        if(my == null)  return matrix.Draw(getTransferEntity());
+        else return matrix.Draw(my);
     }
 
     public Drawer getDrawer(){

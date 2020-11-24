@@ -2,6 +2,7 @@ package sample.Lab1.Matrix;
 
 import sample.Lab2.Drawer.Drawer;
 import sample.Lab1.Vector.Vector;
+import sample.Lab3.Transfer;
 
 public abstract class SomeMatrix implements Matrix {
 
@@ -10,6 +11,7 @@ public abstract class SomeMatrix implements Matrix {
     private int columnSize;
     private Drawer drawer;
     private boolean border = true;
+
 
 
     public SomeMatrix(Drawer d){
@@ -34,6 +36,10 @@ public abstract class SomeMatrix implements Matrix {
         drawer = d;
     }
 
+    public Vector[] getRows() {
+        return rows;
+    }
+
     public boolean hasBorder(){
         return border;
     }
@@ -42,39 +48,16 @@ public abstract class SomeMatrix implements Matrix {
         border = check;
     }
 
-    /*public String[] Draw(){
-        if (drawer == null) throw new IllegalArgumentException("Drawer not found!");
+    public String[] Draw(Transfer my){
+        if (getDrawer() == null) throw new IllegalArgumentException("Drawer not found!");
+        if(my == null) my = getTransferEntity();
 
-        int rowImageSize = 2*getRowSize() + 1;
-        int columnImageSize = 2*getColumnSize() + 1;
-        String[] Image = new String[rowImageSize];
-        for(int i = 0; i < rowImageSize; i++)
-            Image[i] = "";
-
-        for(int i = 0; i < rowImageSize; i++){
-             if (i % 2 == 0){
-                if((border)||((i!=0)&&(i!= rowImageSize-1))) Image[i] = drawer.DrawHorizontalBorder(columnImageSize);
-            }
-            else {
-                StringBuilder temp = new StringBuilder("");
-                for(int j = 0; j < getColumnSize(); j++){
-                    if (j == 0){
-                        if(border) temp.append(drawer.DrawVerticalBorder(j, getColumnSize()));
-                        else temp.append(" ");
-                    }
-                    temp.append(DrawElement(i/2, j));
-                    if(j < getColumnSize() - 1) temp.append(drawer.DrawVerticalBorder(j+1, getColumnSize())); //меняем ориентировку на право
-                    else if (j == getColumnSize() - 1) {
-                        if (border) temp.append(drawer.DrawVerticalBorder(j+1, getColumnSize()));
-                        else temp.append(" ");
-                    }
-                }
-                Image[i] = temp.toString();
-            }
-        }
+        String[] Image = drawAlgorithm(my);
 
         return Image;
-    }*/
+    }
+
+    protected abstract String[] drawAlgorithm(Transfer my);
 
     @Override
     public boolean WriteElement(int row, int column, int element){
@@ -118,4 +101,5 @@ public abstract class SomeMatrix implements Matrix {
     public boolean isComponent() {
         return false;
     }
+
 }

@@ -74,14 +74,14 @@ public class Controller{
                     if (newValue.equals("Straight")) {
                         decorator.setDrawer(StraightDrawer.getInstance());
 
-                        ConsoleView(decorator.Draw());
-                        UIView(decorator.Draw());
+                        ConsoleView(decorator.Draw(null));
+                        UIView(decorator.Draw(null));
                     }
                     if (newValue.equals("Curly")) {
                         decorator.setDrawer(CurlyDrawer.getInstance());
 
-                        ConsoleView(decorator.Draw());
-                        UIView(decorator.Draw());
+                        ConsoleView(decorator.Draw(null));
+                        UIView(decorator.Draw(null));
                     }
                 }
             }
@@ -103,10 +103,10 @@ public class Controller{
                 }
 
                 decorator.setBorder(Border.isSelected());
-                InitiatorMatrix.Fill(decorator, (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize())),10);
+                InitiatorMatrix.extraFill(decorator, (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize())),10);
 
-                ConsoleView(decorator.Draw());
-                UIView(decorator.Draw());
+                ConsoleView(decorator.Draw(null));
+                UIView(decorator.Draw(null));
             }
         });
 
@@ -127,10 +127,10 @@ public class Controller{
                     notzeroelements = (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize()));
                 }while(notzeroelements > (((2*decorator.getColumnSize())/decorator.getColumnSize())*decorator.getRowSize()));
 
-                InitiatorMatrix.Fill(decorator, notzeroelements,10);
+                InitiatorMatrix.extraFill(decorator, notzeroelements,10);
 
-                ConsoleView(decorator.Draw());
-                UIView(decorator.Draw());
+                ConsoleView(decorator.Draw(null));
+                UIView(decorator.Draw(null));
             }
         });
 
@@ -140,8 +140,8 @@ public class Controller{
                 if(decorator == null) return;
                 decorator.setBorder(Border.isSelected());
 
-                ConsoleView(decorator.Draw());
-                UIView(decorator.Draw());
+                ConsoleView(decorator.Draw(null));
+                UIView(decorator.Draw(null));
             }
         });
 
@@ -175,8 +175,8 @@ public class Controller{
                 alert.setContentText("Изменения: строки " + Up + " и " + Down + ", столбцы " + Left + " и " + Right);
                 alert.showAndWait();
 
-                ConsoleView(decorator.Draw());
-                UIView(decorator.Draw());
+                ConsoleView(decorator.Draw(null));
+                UIView(decorator.Draw(null));
 
             }
         });
@@ -187,8 +187,8 @@ public class Controller{
                 if(decorator == null) return;
                 decorator.DefaultView();
 
-                ConsoleView(decorator.Draw());
-                UIView(decorator.Draw());
+                ConsoleView(decorator.Draw(null));
+                UIView(decorator.Draw(null));
             }
         });
     }
