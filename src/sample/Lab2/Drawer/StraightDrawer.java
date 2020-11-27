@@ -17,7 +17,7 @@ public class StraightDrawer extends SomeDrawer {
         return '-';
     }
 
-    final public char DrawVerticalBorder(int cell, int size){
-        return '|';
+    final public String DrawVerticalBorder(int cell, int size){
+        return "|";
     }
 }

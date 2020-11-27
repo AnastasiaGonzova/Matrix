@@ -1,6 +1,7 @@
 package sample.Lab3;
 
 import sample.Lab1.Matrix.Matrix;
+import sample.Lab1.Vector.Vector;
 import sample.Lab2.Drawer.Drawer;
 
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class RowDecorator implements Matrix{
     public int getColumnSize() {
         return matrix.getColumnSize();
     }
+
 
     @Override
     public String[] Draw(Transfer my) {

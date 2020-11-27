@@ -12,9 +12,10 @@ public class SparseMatrix extends SomeMatrix {
 
     public SparseMatrix(Drawer d){
         super(d);
+        orderList = new LinkedList<>();
     }
 
-    private LinkedList<Order> orderList = new LinkedList<>();
+    private LinkedList<Order> orderList;
 
     private class Order{
 

@@ -18,9 +18,9 @@ public class CurlyDrawer extends SomeDrawer {
     }
 
 
-    final public char DrawVerticalBorder(int cell, int size){
-        if(cell == 0) return '{';
-        else if(cell == size) return '}';
-        else  return '!';
+    final public String DrawVerticalBorder(int cell, int size){
+        if(cell == 0) return "{";
+        else if(cell == size) return "}";
+        else  return "!";
     }
 }

@@ -1,5 +1,6 @@
 package sample.Lab1.Matrix;
 
+import sample.Lab1.Vector.Vector;
 import sample.Lab2.Drawer.Drawer;
 import sample.Lab3.Transfer;
 
