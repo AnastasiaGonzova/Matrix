@@ -10,6 +10,11 @@ public class RegularVector implements Vector {
         elements = new int[size];
     }
 
+    public RegularVector(int s){
+        size = s;
+        elements = new int[size];
+    }
+
     @Override
     public boolean WriteElement(int position, int element) {
         elements[position] = element;

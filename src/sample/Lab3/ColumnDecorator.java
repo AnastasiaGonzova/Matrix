@@ -6,7 +6,7 @@ import sample.Lab2.Drawer.Drawer;
 
 import java.util.HashMap;
 
-public class ColumnDecorator implements Matrix{
+public class ColumnDecorator implements Decorator{
 
     private Matrix matrix;
     private HashMap<Integer, Integer> ColumnMatching;
@@ -32,7 +32,7 @@ public class ColumnDecorator implements Matrix{
     public void DefaultView(){
         for(int i = 0; i < this.getColumnSize(); i++)
             ColumnMatching.put(i,i);
-        if(matrix.isComponent()) matrix.DefaultView();
+        if(matrix.isComponent()) ((Decorator)matrix).DefaultView();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ColumnDecorator implements Matrix{
     }
 
     @Override
-    public int ReadElement(int row, int column) {
+    public Integer ReadElement(int row, int column) {
         int newColumn = ColumnMatching.get(column);
         return matrix.ReadElement(row, newColumn);
     }
@@ -64,23 +64,21 @@ public class ColumnDecorator implements Matrix{
         else return matrix.Draw(my);
     }
 
+    @Override
+    final public String ElementToString(int row, int column, Transfer my) {
+        //if(my == null) my = getTransferEntity();
+       // int newColumn = ColumnMatching.get(column);
+        return matrix.ElementToString(row, column, my);
+    }
+
     public Drawer getDrawer(){
         return matrix.getDrawer();
     }
 
     @Override
     public void setDrawer(Drawer d) {
+        if(d == null) throw new IllegalArgumentException("Drawer can't be null");
         matrix.setDrawer(d);
-    }
-
-    @Override
-    public boolean hasBorder() {
-        return matrix.hasBorder();
-    }
-
-    @Override
-    public void setBorder(boolean check) {
-        matrix.setBorder(check);
     }
 
     @Override

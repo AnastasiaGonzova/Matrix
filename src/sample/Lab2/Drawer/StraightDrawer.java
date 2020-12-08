@@ -9,8 +9,8 @@ public class StraightDrawer extends SomeDrawer {
         return instance;
     }
 
-    private StraightDrawer(){
-
+    private StraightDrawer() {
+        this.setBorder(true);
     }
 
     final protected char HorizontalBorderSymbol(){
@@ -18,6 +18,7 @@ public class StraightDrawer extends SomeDrawer {
     }
 
     final public String DrawVerticalBorder(int cell, int size){
+        if(((cell == 0)||(cell == size))&&(!this.hasBorder())) return " ";
         return "|";
     }
 }

@@ -10,7 +10,7 @@ public class CurlyDrawer extends SomeDrawer {
     }
 
     private CurlyDrawer(){
-
+        this.setBorder(true);
     }
 
     final protected char HorizontalBorderSymbol(){
@@ -19,8 +19,12 @@ public class CurlyDrawer extends SomeDrawer {
 
 
     final public String DrawVerticalBorder(int cell, int size){
-        if(cell == 0) return "{";
-        else if(cell == size) return "}";
-        else  return "!";
+        if(this.hasBorder()){
+            if(cell == 0) return "{";
+            if(cell == size) return "}";
+        }
+        else return " ";
+
+        return "!";
     }
 }

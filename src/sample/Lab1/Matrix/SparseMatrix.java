@@ -15,6 +15,11 @@ public class SparseMatrix extends SomeMatrix {
         orderList = new LinkedList<>();
     }
 
+    public SparseMatrix(int row, int col, Drawer d){
+        super(row, col, d);
+        orderList = new LinkedList<>();
+    }
+
     private LinkedList<Order> orderList;
 
     private class Order{
@@ -62,6 +67,10 @@ public class SparseMatrix extends SomeMatrix {
         return new SparseVector();
     }
 
+    public Vector Create(int s){
+        return new SparseVector(s);
+    }
+
     @Override
     public boolean WriteElement(int row, int column, int element){
         if(getRows()[row].WriteElement(column, element)){
@@ -75,9 +84,12 @@ public class SparseMatrix extends SomeMatrix {
         return false;
     }
 
-    final private String DrawElement(int i, int j, Transfer my){
+    final public String ElementToString(int i, int j, Transfer my){
+        //if(my == null) my = getTransferEntity();
         Integer res = my.Transfer(i, j);
-        if(my.Transfer(i, j) != 0) return res.toString();
+        /*if(res == null)
+            res = my.Transfer(i, j);*/
+        if(res != 0) return res.toString();
         else return "_";
     }
 
@@ -86,9 +98,6 @@ public class SparseMatrix extends SomeMatrix {
         int rowImageSize = 2 * getRowSize() + 1;
         int columnImageSize = 2 * getColumnSize() + 1;
         String[] Image = new String[rowImageSize];
-        for (int i = 0; i < rowImageSize; i++)
-            Image[i] = "";
-
 
         StringBuilder[] tempMatrix = new StringBuilder[getRowSize()];
         for (int i = 0; i < getRowSize(); i++){
@@ -100,32 +109,33 @@ public class SparseMatrix extends SomeMatrix {
 
 
         for (Order i : orderList) {
-            tempMatrix[i.getRow()].replace(i.getColumn(), i.getColumn() + 1, DrawElement(i.getRow(), i.getColumn(), my));
+            tempMatrix[i.getRow()].replace(i.getColumn(), i.getColumn() + 1, ElementToString(i.getRow(), i.getColumn(), my));
         }
 
         for (int i = 0; i < rowImageSize; i++) {
             if (i % 2 == 0) {
-                if ((hasBorder()) || ((i != 0) && (i != rowImageSize - 1)))
-                    Image[i] = getDrawer().DrawHorizontalBorder(columnImageSize);
+                if((i!=0)&&(i!= rowImageSize-1)) Image[i] = getDrawer().DrawHorizontalBorder(columnImageSize);
+                else{
+                    if(this.getDrawer().hasBorder()) Image[i] = getDrawer().DrawHorizontalBorder(columnImageSize);
+                    else{
+                        StringBuilder temp = new StringBuilder("");
+                        for(int j = 0; j < columnImageSize; j++)
+                            temp.append(" ");
+                        Image[i] = temp.toString();
+                    }
+                }
             } else {
                 StringBuilder tempString = new StringBuilder("");
                 for (int j = 0; j < getColumnSize(); j++) {
                     if (j == 0) {
-                        if (hasBorder()) tempString.append(getDrawer().DrawVerticalBorder(j, getColumnSize()));
-                        else tempString.append(" ");
+                        tempString.append(getDrawer().DrawVerticalBorder(j, getColumnSize()));
                     }
                     tempString.append(tempMatrix[i / 2].charAt(j));
-                    if (j < getColumnSize() - 1)
-                        tempString.append(getDrawer().DrawVerticalBorder(j + 1, getColumnSize())); //меняем ориентировку на право
-                    else if (j == getColumnSize() - 1) {
-                        if (hasBorder()) tempString.append(getDrawer().DrawVerticalBorder(j + 1, getColumnSize()));
-                        else tempString.append(" ");
-                    }
+                    tempString.append(getDrawer().DrawVerticalBorder(j + 1, getColumnSize())); //меняем ориентировку на право
                 }
                 Image[i] = tempString.toString();
             }
         }
-
             return Image;
-        }
+    }
 }

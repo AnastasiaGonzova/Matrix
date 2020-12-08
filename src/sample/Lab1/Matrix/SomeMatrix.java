@@ -10,7 +10,6 @@ public abstract class SomeMatrix implements Matrix {
     private int rowSize;
     private int columnSize;
     private Drawer drawer;
-    private boolean border = true;
 
 
 
@@ -25,7 +24,19 @@ public abstract class SomeMatrix implements Matrix {
         drawer = d;
     }
 
+    public SomeMatrix(int row, int col, Drawer d){
+        if(d == null) throw new IllegalArgumentException("Drawer can't be null");
+        rowSize = row;
+        columnSize = col;
+        rows = new Vector[rowSize];
+        for(int i = 0; i < rowSize; i++){
+            rows[i] = Create(columnSize);
+        }
+        drawer = d;
+    }
+
     protected abstract Vector Create();
+    protected abstract Vector Create(int s);
 
     public Drawer getDrawer(){
         return drawer;
@@ -40,13 +51,6 @@ public abstract class SomeMatrix implements Matrix {
         return rows;
     }
 
-    public boolean hasBorder(){
-        return border;
-    }
-
-    public void setBorder(boolean check){
-        border = check;
-    }
 
     public String[] Draw(Transfer my){
         if (getDrawer() == null) throw new IllegalArgumentException("Drawer not found!");
@@ -65,7 +69,7 @@ public abstract class SomeMatrix implements Matrix {
     }
 
     @Override
-    public int ReadElement(int row, int column){
+    public Integer ReadElement(int row, int column){
         return rows[row].ReadElement(column);
     }
 
@@ -87,14 +91,6 @@ public abstract class SomeMatrix implements Matrix {
             System.out.println(rows[i]);
         }
         return "";
-    }
-
-    public void Swap(int i, int j){
-        throw new UnsupportedOperationException("It's not a decorator");
-    }
-
-    public void DefaultView(){
-        throw new UnsupportedOperationException("It's not a decorator");
     }
 
     @Override

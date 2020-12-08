@@ -12,6 +12,11 @@ public class SparseVector implements Vector {
         notZeroElements = new HashMap<>();
     }
 
+    public SparseVector(int s){
+        size = s;
+        notZeroElements = new HashMap<>();
+    }
+
     private boolean Check(){
         if((double)(notZeroElements.size() + 1)/size > 0.5) return false;
         return true;

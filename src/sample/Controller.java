@@ -17,6 +17,7 @@ import sample.Lab1.StatisticMatrix;
 import sample.Lab2.Drawer.CurlyDrawer;
 import sample.Lab2.Drawer.StraightDrawer;
 import sample.Lab3.ColumnDecorator;
+import sample.Lab3.Decorator;
 import sample.Lab3.RowDecorator;
 
 public class Controller{
@@ -102,7 +103,7 @@ public class Controller{
                     decorator = CreateDecorator(m);
                 }
 
-                decorator.setBorder(Border.isSelected());
+                decorator.getDrawer().setBorder(Border.isSelected());
                 InitiatorMatrix.extraFill(decorator, (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize())),10);
 
                 ConsoleView(decorator.Draw(null));
@@ -121,7 +122,7 @@ public class Controller{
                     SparseMatrix m = new SparseMatrix(CurlyDrawer.getInstance());
                     decorator = CreateDecorator(m);
                 }
-                decorator.setBorder(Border.isSelected());
+                decorator.getDrawer().setBorder(Border.isSelected());
                 int notzeroelements;
                 do{
                     notzeroelements = (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize()));
@@ -138,7 +139,7 @@ public class Controller{
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(decorator == null) return;
-                decorator.setBorder(Border.isSelected());
+                decorator.getDrawer().setBorder(Border.isSelected());
 
                 ConsoleView(decorator.Draw(null));
                 UIView(decorator.Draw(null));
@@ -168,7 +169,7 @@ public class Controller{
                 int Right = (int)(Math.random()*decorator.getColumnSize());
 
                 decorator.Swap(Up, Down);
-                decorator.getComponent().Swap(Left, Right);
+                ((Decorator)decorator.getComponent()).Swap(Left, Right);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Перенумерация");
