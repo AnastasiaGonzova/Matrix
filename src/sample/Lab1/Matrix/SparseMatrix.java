@@ -3,7 +3,6 @@ package sample.Lab1.Matrix;
 import sample.Lab2.Drawer.Drawer;
 import sample.Lab1.Vector.SparseVector;
 import sample.Lab1.Vector.Vector;
-import sample.Lab3.Transfer;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -84,16 +83,14 @@ public class SparseMatrix extends SomeMatrix {
         return false;
     }
 
-    final public String ElementToString(int i, int j, Transfer my){
-        //if(my == null) my = getTransferEntity();
-        Integer res = my.Transfer(i, j);
-        /*if(res == null)
-            res = my.Transfer(i, j);*/
+    final public String ElementToString(int i, int j){
+
+        Integer res = ReadElement(i, j);
         if(res != 0) return res.toString();
         else return "_";
     }
 
-    final protected String[] drawAlgorithm (Transfer my) {
+    final protected String[] drawAlgorithm () {
 
         int rowImageSize = 2 * getRowSize() + 1;
         int columnImageSize = 2 * getColumnSize() + 1;
@@ -109,7 +106,7 @@ public class SparseMatrix extends SomeMatrix {
 
 
         for (Order i : orderList) {
-            tempMatrix[i.getRow()].replace(i.getColumn(), i.getColumn() + 1, ElementToString(i.getRow(), i.getColumn(), my));
+            tempMatrix[i.getRow()].replace(i.getColumn(), i.getColumn() + 1, ElementToString(i.getRow(), i.getColumn()));
         }
 
         for (int i = 0; i < rowImageSize; i++) {

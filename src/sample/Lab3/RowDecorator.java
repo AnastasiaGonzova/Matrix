@@ -1,7 +1,6 @@
 package sample.Lab3;
 
 import sample.Lab1.Matrix.Matrix;
-import sample.Lab1.Vector.Vector;
 import sample.Lab2.Drawer.Drawer;
 
 import java.util.HashMap;
@@ -59,16 +58,9 @@ public class RowDecorator implements Decorator{
 
 
     @Override
-    public String[] Draw(Transfer my) {
-        if(my == null)  return matrix.Draw(getTransferEntity());
-        else return matrix.Draw(my);
-    }
-
-    @Override
-    public String ElementToString(int row, int column, Transfer my) {
-        //if(my == null) my = getTransferEntity();
-        //int newRow = RowMatching.get(row);
-        return matrix.ElementToString(row, column, my);
+    public String ElementToString(int row, int column) {
+        int newRow = RowMatching.get(row);
+        return matrix.ElementToString(newRow, column);
     }
 
     public Drawer getDrawer(){

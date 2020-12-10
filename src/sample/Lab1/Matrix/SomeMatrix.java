@@ -2,7 +2,6 @@ package sample.Lab1.Matrix;
 
 import sample.Lab2.Drawer.Drawer;
 import sample.Lab1.Vector.Vector;
-import sample.Lab3.Transfer;
 
 public abstract class SomeMatrix implements Matrix {
 
@@ -52,16 +51,15 @@ public abstract class SomeMatrix implements Matrix {
     }
 
 
-    public String[] Draw(Transfer my){
+    public String[] Draw(){
         if (getDrawer() == null) throw new IllegalArgumentException("Drawer not found!");
-        if(my == null) my = getTransferEntity();
 
-        String[] Image = drawAlgorithm(my);
+        String[] Image = drawAlgorithm();
 
         return Image;
     }
 
-    protected abstract String[] drawAlgorithm(Transfer my);
+    protected abstract String[] drawAlgorithm();
 
     @Override
     public boolean WriteElement(int row, int column, int element){

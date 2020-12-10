@@ -23,7 +23,7 @@ public class CurlyDrawer extends SomeDrawer {
             if(cell == 0) return "{";
             if(cell == size) return "}";
         }
-        else return " ";
+        else if((cell == 0)||(cell==size)) return " ";
 
         return "!";
     }

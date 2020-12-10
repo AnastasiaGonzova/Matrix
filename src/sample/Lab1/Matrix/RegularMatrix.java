@@ -3,7 +3,6 @@ package sample.Lab1.Matrix;
 import sample.Lab2.Drawer.Drawer;
 import sample.Lab1.Vector.RegularVector;
 import sample.Lab1.Vector.Vector;
-import sample.Lab3.Transfer;
 
 public class RegularMatrix extends SomeMatrix {
 
@@ -21,14 +20,12 @@ public class RegularMatrix extends SomeMatrix {
         return new RegularVector(s);
     }
 
-    final public String ElementToString(int i, int j, Transfer my){
-        //if(my == null) my = getTransferEntity();
-        Integer res = my.Transfer(i, j);
+    final public String ElementToString(int i, int j){
+        Integer res = ReadElement(i, j);
         return res.toString();
     }
 
-    final protected String[] drawAlgorithm(Transfer my){
-
+    final protected String[] drawAlgorithm(){
         int rowImageSize = 2*getRowSize() + 1;
         int columnImageSize = 2*getColumnSize() + 1;
         String[] Image = new String[rowImageSize];
@@ -52,7 +49,7 @@ public class RegularMatrix extends SomeMatrix {
                     if (j == 0){
                         temp.append(getDrawer().DrawVerticalBorder(j, getColumnSize()));
                     }
-                    temp.append(ElementToString(i/2, j, my));
+                    temp.append(ElementToString(i/2, j));
                     temp.append(getDrawer().DrawVerticalBorder(j+1, getColumnSize())); //меняем ориентировку на право
                     }
                 Image[i] = temp.toString();

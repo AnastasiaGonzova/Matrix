@@ -2,7 +2,6 @@ package sample.Lab4;
 
 import sample.Lab1.Matrix.Matrix;
 import sample.Lab2.Drawer.Drawer;
-import sample.Lab3.Transfer;
 
 import java.util.LinkedList;
 
@@ -57,7 +56,8 @@ public class HorizontalMatrixGroup implements Matrix {
 
     @Override
     public Integer ReadElement(int row, int column) {
-        if(!CheckRow(row)) throw new IndexOutOfBoundsException("There is no row with this number");
+        if(!CheckRow(row))
+            throw new IndexOutOfBoundsException("There is no row with this number");
         if(!CheckCol(column)) throw new IndexOutOfBoundsException("There is no column with this number");
 
         Integer res = null;
@@ -94,10 +94,9 @@ public class HorizontalMatrixGroup implements Matrix {
         return columnSize;
     }
 
-    @Override
-    final public String[] Draw(Transfer my) {
+    /*@Override
+    final public String[] Draw() {
         if (drawer == null) throw new IllegalArgumentException("Drawer not found!");
-        //if(my == null) my = getTransferEntity();
 
         int rowImageSize = 2*this.getRowSize() + 1;
         int columnImageSize = 2*this.getColumnSize() + 1;
@@ -113,7 +112,7 @@ public class HorizontalMatrixGroup implements Matrix {
         int size = 0;
         for(Matrix i : matrixGroup) {
             i.setDrawer(drawer);
-            String[] matrixView = i.Draw(my);
+            String[] matrixView = i.Draw();
 
             for (int j = 0; j < matrixView.length; j++) {
                 temp[j].append(matrixView[j]);
@@ -158,11 +157,10 @@ public class HorizontalMatrixGroup implements Matrix {
             Image[i] = temp[i].toString();
 
         return Image;
-    }
+    }*/
 
     @Override
-    final public String ElementToString(int row, int column, Transfer my) {
-        //if(my == null) my = getTransferEntity();
+    final public String ElementToString(int row, int column) {
         if(!CheckRow(row)) throw new IndexOutOfBoundsException("There is no row with this number");
         if(!CheckCol(column)) throw new IndexOutOfBoundsException("There is no column with this number");
 
@@ -170,7 +168,7 @@ public class HorizontalMatrixGroup implements Matrix {
         int copyJ = column;
         for(Matrix m : matrixGroup){
            if((row < m.getRowSize())&&(copyJ < m.getColumnSize())){
-                res = m.ElementToString(row, column, my);
+                res = m.ElementToString(row, copyJ);
                 break;
             }
             else {

@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import sample.Lab1.InitiatorMatrix;
 import sample.Lab1.Matrix.Matrix;
 import sample.Lab1.Matrix.RegularMatrix;
-import sample.Lab1.Matrix.SomeMatrix;
 import sample.Lab1.Matrix.SparseMatrix;
 import sample.Lab1.StatisticMatrix;
 import sample.Lab2.Drawer.CurlyDrawer;
@@ -19,6 +18,8 @@ import sample.Lab2.Drawer.StraightDrawer;
 import sample.Lab3.ColumnDecorator;
 import sample.Lab3.Decorator;
 import sample.Lab3.RowDecorator;
+import sample.Lab4.HorizontalMatrixGroup;
+import sample.Lab4.VerticalMatrixGroup;
 
 public class Controller{
 
@@ -58,7 +59,27 @@ public class Controller{
     @FXML
     private Button Back;
 
+    @FXML
+    private Label Group;
+
+    @FXML
+    private Button HGroup;
+
+    @FXML
+    private Button VGroup;
+
+    @FXML
+    private Button AddHGroup;
+
+    @FXML
+    private Button AddVGroup;
+
     private RowDecorator decorator = null;
+
+    private HorizontalMatrixGroup hmg = null;
+
+    private VerticalMatrixGroup vhmg = null;
+
 
     @FXML
     void initialize(){
@@ -75,14 +96,14 @@ public class Controller{
                     if (newValue.equals("Straight")) {
                         decorator.setDrawer(StraightDrawer.getInstance());
 
-                        ConsoleView(decorator.Draw(null));
-                        UIView(decorator.Draw(null));
+                        ConsoleView(decorator.Draw());
+                        UIView(decorator.Draw());
                     }
                     if (newValue.equals("Curly")) {
                         decorator.setDrawer(CurlyDrawer.getInstance());
 
-                        ConsoleView(decorator.Draw(null));
-                        UIView(decorator.Draw(null));
+                        ConsoleView(decorator.Draw());
+                        UIView(decorator.Draw());
                     }
                 }
             }
@@ -106,8 +127,8 @@ public class Controller{
                 decorator.getDrawer().setBorder(Border.isSelected());
                 InitiatorMatrix.extraFill(decorator, (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize())),10);
 
-                ConsoleView(decorator.Draw(null));
-                UIView(decorator.Draw(null));
+                ConsoleView(decorator.Draw());
+                UIView(decorator.Draw());
             }
         });
 
@@ -130,19 +151,29 @@ public class Controller{
 
                 InitiatorMatrix.extraFill(decorator, notzeroelements,10);
 
-                ConsoleView(decorator.Draw(null));
-                UIView(decorator.Draw(null));
+                ConsoleView(decorator.Draw());
+                UIView(decorator.Draw());
             }
         });
 
         Border.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(decorator == null) return;
-                decorator.getDrawer().setBorder(Border.isSelected());
-
-                ConsoleView(decorator.Draw(null));
-                UIView(decorator.Draw(null));
+                if(decorator != null){
+                    decorator.getDrawer().setBorder(Border.isSelected());
+                    ConsoleView(decorator.Draw());
+                    UIView(decorator.Draw());
+                }
+                if(hmg != null){
+                    hmg.getDrawer().setBorder(Border.isSelected());
+                    ConsoleView(hmg.Draw());
+                    UIView(hmg.Draw());
+                }
+                if(vhmg != null){
+                    vhmg.getDrawer().setBorder(Border.isSelected());
+                    ConsoleView(vhmg.Draw());
+                    UIView(vhmg.Draw());
+                }
             }
         });
 
@@ -176,8 +207,8 @@ public class Controller{
                 alert.setContentText("Изменения: строки " + Up + " и " + Down + ", столбцы " + Left + " и " + Right);
                 alert.showAndWait();
 
-                ConsoleView(decorator.Draw(null));
-                UIView(decorator.Draw(null));
+                ConsoleView(decorator.Draw());
+                UIView(decorator.Draw());
 
             }
         });
@@ -188,8 +219,115 @@ public class Controller{
                 if(decorator == null) return;
                 decorator.DefaultView();
 
-                ConsoleView(decorator.Draw(null));
-                UIView(decorator.Draw(null));
+                ConsoleView(decorator.Draw());
+                UIView(decorator.Draw());
+            }
+        });
+
+        HGroup.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(SelectDrawer.getValue().equals("Straight")){
+                    hmg = new HorizontalMatrixGroup(StraightDrawer.getInstance());
+                    if(decorator != null) {
+                        hmg.AddMatrix(decorator);
+                        decorator = null;
+                    }
+                }
+                if(SelectDrawer.getValue().equals("Curly")){
+                    hmg = new HorizontalMatrixGroup(CurlyDrawer.getInstance());
+                    if(decorator != null) {
+                        hmg.AddMatrix(decorator);
+                        decorator = null;
+                    }
+                }
+                hmg.getDrawer().setBorder(Border.isSelected());
+
+                ConsoleView(hmg.Draw());
+                UIView(hmg.Draw());
+            }
+        });
+
+        VGroup.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(SelectDrawer.getValue().equals("Straight")){
+                    if(hmg == null)
+                        vhmg = new VerticalMatrixGroup(StraightDrawer.getInstance());
+                    else vhmg = new VerticalMatrixGroup(hmg, StraightDrawer.getInstance());
+                    if(decorator != null) {
+                        vhmg.AddMatrix(decorator);
+                        decorator = null;
+                    }
+                    hmg = null;
+                }
+                if(SelectDrawer.getValue().equals("Curly")){
+                    if(hmg == null)
+                        vhmg = new VerticalMatrixGroup(CurlyDrawer.getInstance());
+                    else vhmg = new VerticalMatrixGroup(hmg, StraightDrawer.getInstance());
+                    if(decorator != null) {
+                        vhmg.AddMatrix(decorator);
+                        decorator = null;
+                    }
+                    hmg = null;
+                }
+                vhmg.getDrawer().setBorder(Border.isSelected());
+
+
+                ConsoleView(vhmg.Draw());
+                UIView(vhmg.Draw());
+            }
+        });
+
+        AddHGroup.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+               if(hmg == null) return;
+               int rand = (int)(Math.random()*2);
+               Matrix m;
+               if(rand == 0){
+                   m = new RegularMatrix(hmg.getDrawer());
+                   InitiatorMatrix.extraFill(m, (int)(Math.random()*(m.getColumnSize()*m.getRowSize())),10);
+               }
+               else{
+                   m = new SparseMatrix(hmg.getDrawer());
+                   int notzeroelements;
+                   do{
+                       notzeroelements = (int)(Math.random()*(m.getColumnSize()*m.getRowSize()));
+                   }while(notzeroelements > (((2*m.getColumnSize())/m.getColumnSize())*m.getRowSize()));
+
+                   InitiatorMatrix.extraFill(m, notzeroelements,10);
+               }
+               hmg.AddMatrix(m);
+
+               ConsoleView(hmg.Draw());
+               UIView(hmg.Draw());
+            }
+        });
+
+        AddVGroup.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(vhmg == null) return;
+                int rand = (int)(Math.random()*2);
+                Matrix m;
+                if(rand == 0){
+                    m = new RegularMatrix(vhmg.getDrawer());
+                    InitiatorMatrix.extraFill(m, (int)(Math.random()*(m.getColumnSize()*m.getRowSize())),10);
+                }
+                else{
+                    m = new SparseMatrix(vhmg.getDrawer());
+                    int notzeroelements;
+                    do{
+                        notzeroelements = (int)(Math.random()*(m.getColumnSize()*m.getRowSize()));
+                    }while(notzeroelements > (((2*m.getColumnSize())/m.getColumnSize())*m.getRowSize()));
+
+                    InitiatorMatrix.extraFill(m, notzeroelements,10);
+                }
+                vhmg.AddMatrix(m);
+
+                ConsoleView(vhmg.Draw());
+                UIView(vhmg.Draw());
             }
         });
     }
