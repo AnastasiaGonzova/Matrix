@@ -41,4 +41,11 @@ public class RegularVector implements Vector {
         String res = S.toString();
         return res;
     }
+
+    public Vector getCopy() {
+        RegularVector copy = new RegularVector(this.getSize());
+        for(int i = 0; i < this.getSize(); i++)
+            copy.WriteElement(i, this.ReadElement(i));
+        return copy;
+    }
 }

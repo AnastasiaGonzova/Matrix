@@ -87,4 +87,10 @@ public class RowDecorator implements Decorator{
         }
         return "";
     }
+
+    public Matrix getCopy() {
+        RowDecorator copy = new RowDecorator(this.getComponent().getCopy());
+        copy.RowMatching = (HashMap<Integer, Integer>) (this.RowMatching.clone());
+        return copy;
+    }
 }

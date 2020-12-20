@@ -89,4 +89,10 @@ public class ColumnDecorator implements Decorator{
         }
         return "";
     }
+
+    public Matrix getCopy() {
+        ColumnDecorator copy = new ColumnDecorator(this.getComponent().getCopy());
+        copy.ColumnMatching = (HashMap<Integer, Integer>) (this.ColumnMatching.clone());
+        return copy;
+    }
 }

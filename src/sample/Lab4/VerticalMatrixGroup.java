@@ -203,4 +203,12 @@ public class VerticalMatrixGroup implements Matrix {
     public boolean isComponent() {
         return false;
     }
+
+    public Matrix getCopy() {
+        VerticalMatrixGroup copy = new VerticalMatrixGroup(this.getDrawer());
+        for(Matrix m : this.matrixGroup.getGroup()){
+            copy.matrixGroup.AddMatrix(m.getCopy());
+        }
+        return copy;
+    }
 }

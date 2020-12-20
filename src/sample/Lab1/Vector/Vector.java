@@ -7,4 +7,6 @@ public interface Vector {
     int ReadElement(int position);
 
     int getSize();
+
+    Vector getCopy();
 }

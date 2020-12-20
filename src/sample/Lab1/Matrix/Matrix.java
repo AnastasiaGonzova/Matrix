@@ -51,4 +51,6 @@ public interface Matrix {
     void setDrawer(Drawer d);
 
     boolean isComponent();
+
+    Matrix getCopy();
 }

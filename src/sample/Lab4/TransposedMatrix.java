@@ -51,4 +51,9 @@ public class TransposedMatrix implements Matrix {
     public boolean isComponent() {
         return true;
     }
+
+    public Matrix getCopy() {
+        TransposedMatrix copy = new TransposedMatrix(this.matrix.getCopy());
+        return copy;
+    }
 }

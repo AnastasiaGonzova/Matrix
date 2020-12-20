@@ -135,4 +135,11 @@ public class SparseMatrix extends SomeMatrix {
         }
             return Image;
     }
+
+    public Matrix getCopy() {
+        SparseMatrix copy = new SparseMatrix(this.getRowSize(), this.getColumnSize(), this.getDrawer());
+        for(int i = 0; i < this.getRowSize(); i++)
+            copy.getRows()[i] = this.getRows()[i].getCopy();
+        return copy;
+    }
 }

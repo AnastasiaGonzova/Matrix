@@ -28,7 +28,7 @@ public class HorizontalMatrixGroup implements Matrix {
         return (column>=0)&&(column<this.getColumnSize());
     }
 
-    public LinkedList getGroup(){
+    public LinkedList<Matrix> getGroup(){
         return matrixGroup;
     }
 
@@ -197,5 +197,13 @@ public class HorizontalMatrixGroup implements Matrix {
     @Override
     public boolean isComponent() {
         return false;
+    }
+
+    public Matrix getCopy() {
+        HorizontalMatrixGroup copy = new HorizontalMatrixGroup(this.getDrawer());
+        for(Matrix m : this.matrixGroup){
+            copy.AddMatrix(m.getCopy());
+        }
+        return copy;
     }
 }

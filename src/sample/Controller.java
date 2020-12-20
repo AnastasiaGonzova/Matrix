@@ -20,6 +20,9 @@ import sample.Lab3.Decorator;
 import sample.Lab3.RowDecorator;
 import sample.Lab4.HorizontalMatrixGroup;
 import sample.Lab4.VerticalMatrixGroup;
+import sample.Lab5.AppInitiatorCommand;
+import sample.Lab5.CommandManager;
+import sample.Lab5.SomeCommand;
 
 public class Controller{
 
@@ -74,6 +77,15 @@ public class Controller{
     @FXML
     private Button AddVGroup;
 
+    @FXML
+    private Button Change;
+
+    @FXML
+    private Button Undo;
+
+
+    private Controller controller = this;
+
     private RowDecorator decorator = null;
 
     private HorizontalMatrixGroup hmg = null;
@@ -84,23 +96,85 @@ public class Controller{
     @FXML
     void initialize(){
 
+        AppInitiatorCommand cdm = new AppInitiatorCommand(controller, decorator){
+            @Override
+            public void doExecute() {
+                controller.decorator = null;
+                controller.hmg = null;
+                controller.vhmg = null;
+                TextView.clear();
+            }
+        };
+
+        cdm.Execute();
+
         ObservableList<String> drawers = FXCollections.observableArrayList("Straight", "Curly");
         SelectDrawer.setValue("Straight");
         SelectDrawer.setItems(drawers);
         ChangeListener<String> changeListener = new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(decorator == null) return;
+                if(decorator != null){
+                    if(newValue!=null) {
+                        if (newValue.equals("Straight")) {
+                            decorator.setDrawer(StraightDrawer.getInstance());
+                        }
+                        if (newValue.equals("Curly")) {
+                            decorator.setDrawer(CurlyDrawer.getInstance());
+                        }
 
-                if(newValue!=null) {
-                    if (newValue.equals("Straight")) {
-                        decorator.setDrawer(StraightDrawer.getInstance());
+                        ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator) {
+                            @Override
+                            public void doExecute() {
+                                setData();
+                            }
+                        };
+
+                        cdm.Execute();
 
                         ConsoleView(decorator.Draw());
                         UIView(decorator.Draw());
+                  }
+                }
+                if(hmg != null){
+                    if(newValue!=null) {
+                        if (newValue.equals("Straight")) {
+                            hmg.setDrawer(StraightDrawer.getInstance());
+                        }
+                        if (newValue.equals("Curly")) {
+                            hmg.setDrawer(CurlyDrawer.getInstance());
+                        }
+
+                        ControllerHorizontalGroupCommand cdm = new ControllerHorizontalGroupCommand(controller, hmg) {
+                            @Override
+                            public void doExecute() {
+                                setData();
+                            }
+                        };
+
+                        cdm.Execute();
+
+                        ConsoleView(hmg.Draw());
+                        UIView(hmg.Draw());
                     }
-                    if (newValue.equals("Curly")) {
-                        decorator.setDrawer(CurlyDrawer.getInstance());
+                }
+                if(vhmg != null){
+                    if(newValue!=null) {
+                        if (newValue.equals("Straight")) {
+                            vhmg.setDrawer(StraightDrawer.getInstance());
+                        }
+                        if (newValue.equals("Curly")) {
+                            vhmg.setDrawer(CurlyDrawer.getInstance());
+                        }
+
+                        ControllerVerticalGroupCommand cdm = new ControllerVerticalGroupCommand(controller, vhmg) {
+                            @Override
+                            public void doExecute() {
+                                setData();
+                            }
+                        };
+
+                        cdm.Execute();
 
                         ConsoleView(decorator.Draw());
                         UIView(decorator.Draw());
@@ -127,6 +201,15 @@ public class Controller{
                 decorator.getDrawer().setBorder(Border.isSelected());
                 InitiatorMatrix.extraFill(decorator, (int)(Math.random()*(decorator.getColumnSize()*decorator.getRowSize())),10);
 
+                ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cdm.Execute();
+
                 ConsoleView(decorator.Draw());
                 UIView(decorator.Draw());
             }
@@ -151,6 +234,15 @@ public class Controller{
 
                 InitiatorMatrix.extraFill(decorator, notzeroelements,10);
 
+                ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cdm.Execute();
+
                 ConsoleView(decorator.Draw());
                 UIView(decorator.Draw());
             }
@@ -161,16 +253,46 @@ public class Controller{
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(decorator != null){
                     decorator.getDrawer().setBorder(Border.isSelected());
+
+                    ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                        @Override
+                        public void doExecute() {
+                            setData();
+                        }
+                    };
+
+                    cdm.Execute();
+
                     ConsoleView(decorator.Draw());
                     UIView(decorator.Draw());
                 }
                 if(hmg != null){
                     hmg.getDrawer().setBorder(Border.isSelected());
+
+                    ControllerHorizontalGroupCommand chgm = new ControllerHorizontalGroupCommand(controller, hmg){
+                        @Override
+                        public void doExecute() {
+                            setData();
+                        }
+                    };
+
+                    chgm.Execute();
+
                     ConsoleView(hmg.Draw());
                     UIView(hmg.Draw());
                 }
                 if(vhmg != null){
                     vhmg.getDrawer().setBorder(Border.isSelected());
+
+                    ControllerVerticalGroupCommand cvgm = new ControllerVerticalGroupCommand(controller, vhmg){
+                        @Override
+                        public void doExecute() {
+                            setData();
+                        }
+                    };
+
+                    cvgm.Execute();
+
                     ConsoleView(vhmg.Draw());
                     UIView(vhmg.Draw());
                 }
@@ -207,9 +329,17 @@ public class Controller{
                 alert.setContentText("Изменения: строки " + Up + " и " + Down + ", столбцы " + Left + " и " + Right);
                 alert.showAndWait();
 
+                ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cdm.Execute();
+
                 ConsoleView(decorator.Draw());
                 UIView(decorator.Draw());
-
             }
         });
 
@@ -218,6 +348,15 @@ public class Controller{
             public void handle(MouseEvent event) {
                 if(decorator == null) return;
                 decorator.DefaultView();
+
+                ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cdm.Execute();
 
                 ConsoleView(decorator.Draw());
                 UIView(decorator.Draw());
@@ -243,6 +382,15 @@ public class Controller{
                 }
                 hmg.getDrawer().setBorder(Border.isSelected());
 
+                ControllerHorizontalGroupCommand chgm = new ControllerHorizontalGroupCommand(controller, hmg){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                chgm.Execute();
+
                 ConsoleView(hmg.Draw());
                 UIView(hmg.Draw());
             }
@@ -254,7 +402,12 @@ public class Controller{
                 if(SelectDrawer.getValue().equals("Straight")){
                     if(hmg == null)
                         vhmg = new VerticalMatrixGroup(StraightDrawer.getInstance());
-                    else vhmg = new VerticalMatrixGroup(hmg, StraightDrawer.getInstance());
+                    else {
+                        vhmg = new VerticalMatrixGroup(StraightDrawer.getInstance());
+                        for(Matrix m : hmg.getGroup()){
+                            vhmg.AddMatrix(m);
+                        }
+                    }
                     if(decorator != null) {
                         vhmg.AddMatrix(decorator);
                         decorator = null;
@@ -264,7 +417,12 @@ public class Controller{
                 if(SelectDrawer.getValue().equals("Curly")){
                     if(hmg == null)
                         vhmg = new VerticalMatrixGroup(CurlyDrawer.getInstance());
-                    else vhmg = new VerticalMatrixGroup(hmg, StraightDrawer.getInstance());
+                    else {
+                        vhmg = new VerticalMatrixGroup(CurlyDrawer.getInstance());
+                        for(Matrix m : hmg.getGroup()){
+                            vhmg.AddMatrix(m);
+                        }
+                    }
                     if(decorator != null) {
                         vhmg.AddMatrix(decorator);
                         decorator = null;
@@ -273,6 +431,14 @@ public class Controller{
                 }
                 vhmg.getDrawer().setBorder(Border.isSelected());
 
+                ControllerVerticalGroupCommand cvgm = new ControllerVerticalGroupCommand(controller, vhmg){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cvgm.Execute();
 
                 ConsoleView(vhmg.Draw());
                 UIView(vhmg.Draw());
@@ -300,8 +466,17 @@ public class Controller{
                }
                hmg.AddMatrix(m);
 
-               ConsoleView(hmg.Draw());
-               UIView(hmg.Draw());
+                ControllerHorizontalGroupCommand chgm = new ControllerHorizontalGroupCommand(controller, hmg){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                chgm.Execute();
+
+                ConsoleView(hmg.Draw());
+                UIView(hmg.Draw());
             }
         });
 
@@ -326,10 +501,68 @@ public class Controller{
                 }
                 vhmg.AddMatrix(m);
 
+                ControllerVerticalGroupCommand cvgm = new ControllerVerticalGroupCommand(controller, vhmg){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cvgm.Execute();
+
                 ConsoleView(vhmg.Draw());
                 UIView(vhmg.Draw());
             }
         });
+
+        Change.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(decorator == null) return;
+
+                int x = (int)(Math.random()*decorator.getRowSize());
+                int y = (int)(Math.random()*decorator.getRowSize());
+                int value = (int)(Math.random()*10);
+
+                decorator.WriteElement(x, y, value);
+
+                ControllerDecoratorCommand cdm = new ControllerDecoratorCommand(controller, decorator){
+                    @Override
+                    public void doExecute() {
+                        setData();
+                    }
+                };
+
+                cdm.Execute();
+
+                ConsoleView(decorator.Draw());
+                UIView(decorator.Draw());
+
+            }
+        });
+
+        Undo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+
+                CommandManager.getInstance().Undo();
+
+                if(decorator != null) {
+                    ConsoleView(decorator.Draw());
+                    UIView(decorator.Draw());
+                }
+
+                if(hmg != null){
+                    ConsoleView(hmg.Draw());
+                    UIView(hmg.Draw());
+                }
+                if(vhmg != null){
+                    ConsoleView(vhmg.Draw());
+                    UIView(vhmg.Draw());
+                }
+            }
+        });
+
     }
 
     private void ConsoleView(String[] view){
@@ -347,6 +580,68 @@ public class Controller{
             TextView.appendText(view[i]);
             TextView.appendText("\n");
         }
+    }
+
+    private abstract class ControllerDecoratorCommand extends SomeCommand{
+
+        private Controller controller;
+        private RowDecorator condition;
+        private boolean Border;
+
+        public ControllerDecoratorCommand(Controller c, RowDecorator cond){
+            controller = c;
+            condition = (RowDecorator) cond.getCopy();
+            Border = condition.getDrawer().hasBorder();
+        }
+
+        public void setData(){
+            controller.decorator = (RowDecorator) condition.getCopy();
+            controller.hmg = null;
+            controller.vhmg = null;
+            controller.Border.setSelected(this.Border);
+        }
+
+    }
+
+    private abstract class ControllerHorizontalGroupCommand extends SomeCommand {
+
+        private Controller controller;
+        private HorizontalMatrixGroup condition;
+        private boolean Border;
+
+        public ControllerHorizontalGroupCommand(Controller c, HorizontalMatrixGroup cond) {
+            controller = c;
+            condition = (HorizontalMatrixGroup) cond.getCopy();
+            Border = condition.getDrawer().hasBorder();
+        }
+
+        public void setData() {
+            controller.decorator = null;
+            controller.hmg = (HorizontalMatrixGroup) condition.getCopy();
+            controller.vhmg = null;
+            controller.Border.setSelected(this.Border);
+        }
+    }
+
+    private abstract class ControllerVerticalGroupCommand extends SomeCommand{
+
+        private Controller controller;
+        private VerticalMatrixGroup condition;
+        private boolean Border;
+
+        public ControllerVerticalGroupCommand(Controller c, VerticalMatrixGroup cond){
+            controller = c;
+            condition = (VerticalMatrixGroup) cond.getCopy();
+            Border = condition.getDrawer().hasBorder();
+        }
+
+        public void setData(){
+            controller.decorator = null;
+            controller.hmg = null;
+            controller.vhmg = (VerticalMatrixGroup) condition.getCopy();
+            controller.Border.setSelected(this.Border);
+        }
+
     }
 
 }

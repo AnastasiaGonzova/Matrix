@@ -1,5 +1,7 @@
 package sample.Lab1.Vector;
 
+import sample.Lab1.Matrix.SparseMatrix;
+
 import java.util.HashMap;
 
 public class SparseVector implements Vector {
@@ -55,5 +57,12 @@ public class SparseVector implements Vector {
         }
         String res = S.toString();
         return res;
+    }
+
+    public Vector getCopy() {
+        SparseVector copy = new SparseVector(this.getSize());
+        for(int i = 0; i < this.getSize(); i++)
+            copy.WriteElement(i, this.ReadElement(i));
+        return copy;
     }
 }

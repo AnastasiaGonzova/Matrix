@@ -57,4 +57,11 @@ public class RegularMatrix extends SomeMatrix {
         }
         return Image;
     }
+
+    public Matrix getCopy() {
+        RegularMatrix copy = new RegularMatrix(this.getRowSize(), this.getColumnSize(), this.getDrawer());
+        for(int i = 0; i < this.getRowSize(); i++)
+            copy.getRows()[i] = this.getRows()[i].getCopy();
+        return copy;
+    }
 }

@@ -20,7 +20,7 @@
          </children>
       </Pane>
       <Pane layoutY="106.0" prefHeight="14.0" prefWidth="900.0" style="-fx-background-color: #755841;" />
-      <Button fx:id="CreateSpaMatrix" layoutX="42.0" layoutY="308.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="174.0" text="Разреженная &#10;матрица" textAlignment="CENTER">
+      <Button fx:id="CreateSpaMatrix" layoutX="42.0" layoutY="276.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="174.0" text="Разреженная &#10;матрица" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -29,28 +29,28 @@
          <font>
             <Font name="System Bold" size="25.0" />
          </font></TextArea>
-      <Button fx:id="CreateRegMatrix" layoutX="42.0" layoutY="234.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="174.0" text="Обычная матрица" textAlignment="CENTER">
+      <Button fx:id="CreateRegMatrix" layoutX="42.0" layoutY="202.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="174.0" text="Обычная матрица" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <CheckBox fx:id="Border" alignment="CENTER" layoutX="61.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="136.0" selected="true" text="Граница">
+      <CheckBox fx:id="Border" alignment="CENTER" layoutX="61.0" layoutY="169.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="136.0" selected="true" text="Граница">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </CheckBox>
-      <Label fx:id="CreateMatrix" layoutX="53.0" layoutY="167.0" style="-fx-border-color: #755841;" text="Создание матрицы">
+      <Label fx:id="CreateMatrix" layoutX="53.0" layoutY="137.0" style="-fx-border-color: #755841;" text="Создание матрицы">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="SelectDrawer" layoutX="42.0" layoutY="425.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label fx:id="ChoiceDrawer" layoutX="73.0" layoutY="385.0" style="-fx-border-color: #755841;" text="Выбор drawer">
+      <ChoiceBox fx:id="SelectDrawer" layoutX="42.0" layoutY="386.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label fx:id="ChoiceDrawer" layoutX="73.0" layoutY="347.0" style="-fx-border-color: #755841;" text="Выбор drawer">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="Statistic" layoutX="42.0" layoutY="462.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="174.0" text="Информация о матрице" textAlignment="CENTER">
+      <Button fx:id="Statistic" layoutX="42.0" layoutY="418.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="174.0" text="Информация о матрице" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -93,6 +93,16 @@
       <Button fx:id="AddVGroup" layoutX="783.0" layoutY="430.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="94.0" text="Добавить &#10;в &#10;в группу" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="Change" layoutX="42.0" layoutY="462.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Изменить" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="Undo" layoutX="135.0" layoutY="462.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Undo" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
    </children>
